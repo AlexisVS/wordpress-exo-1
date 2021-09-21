@@ -4,11 +4,10 @@ const autoprefixer = require('gulp-autoprefixer');
 const sass = require('gulp-sass')(require('sass'));
 const headerComment = require('gulp-header-comment');
 // const postcss = require('gulp-postcss')
+const concat = require('gulp-concat');
+const cssnano = require('gulp-cssnano')
 
-
-
-const comment = `
-Theme Name: Theme exo one
+const comment = `Theme Name: Theme exo one
 Theme URI: https://wordpress.org/themes/twentytwenty/
 Author: gogolplus
 Author URI: https://wordpress.org/
@@ -24,18 +23,20 @@ Text Domain: twentytwenty
 This theme, like WordPress, is licensed under the GPL.
 Use it to make something cool, have fun, and share what you've learned with others.
 `
-gulp.task('sass', () => {
-  return gulp.src('./src/sass/**/app.sass')
+gulp.task('css', () => {
+  return gulp.src(['./node_modules/modern-normalize/modern-normalize.css', './src/sass/app.sass'])
     .pipe(sourcemaps.init())
     .pipe(sass.sync().on('error', sass.logError))
+    .pipe(concat('app.css'))
     .pipe(autoprefixer())
+    .pipe(cssnano())
     .pipe(headerComment(comment))
-    .pipe(sourcemaps.write())
+    .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest('./assets/css'));
 });
 
-gulp.task('sass-watch', function () {
-  gulp.watch('./src/sass/**/*.sass', gulp.series('sass'));
+gulp.task('css-watch', function () {
+  gulp.watch(['./src/sass/**/*.sass', './src/sass/**/*.scss'], gulp.series('css'));
 });
 
-gulp.task('default', gulp.series(['sass', 'sass-watch']));
+gulp.task('default', gulp.series(['css', 'css-watch']));

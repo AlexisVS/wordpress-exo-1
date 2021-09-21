@@ -1,0 +1,7 @@
+// sass variable map 
+$colors: (bg-black: #111111,text-white: #f0f0f0,mainNavigation-link: #1391df)
+// loop over each name, color
+:root
+  // each item in color map
+  @each $name, $color in $colors
+    --#{$name}: #{$color}

@@ -7,10 +7,39 @@
 .mainNavigation
   display: flex
   .mainNavigation__img
-    width: 220px
+    max-width: 200px
+    object-fit: contain
+    height: max-content
+    margin-left: 15px
   .mainNavigation__list
     display: flex
     list-style-type: none
-    // .mainNavigation__wrapper
-    //   .mainNavigation-link
-
+    justify-content: center
+    width: 100%
+    align-items: center
+    .mainNavigation__link__wrapper
+      margin: 0 2vw
+      display: flex
+      flex-direction: column
+      justify-content: center
+      align-items: center
+      width: max-content
+      .mainNavigation__link
+        text-decoration: none
+        padding: 0.3rem 1rem
+        white-space: nowrap
+        color: var(--mainNavigation-link)
+        transition: 800ms color ease
+        &:visited
+          color: var(--mainNavigation-link)
+          transition: 800ms color ease
+        &:hover
+          transition: 800ms color ease
+          color: lighten(map-get($colors, "mainNavigation-link"), 15%)
+      .mainNavigation__link__animatedBar
+        height: 3px
+        width: 0
+        &:hover
+          width: 100%
+          transition: 300ms width linear
+          background-color: var(--mainNavigation-link)
